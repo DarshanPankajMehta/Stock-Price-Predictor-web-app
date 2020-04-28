@@ -2,8 +2,7 @@ Flask
 numpy
 matplotlib
 pandas
-pylab
 statsmodels
 pmdarima
-scikit-learn>=0.18
-math
+scikit-learn
+
