@@ -1,2 +1,2 @@
 # stock_predictor_web_app
-This app is predicting future adj. close value of stock price of TCS
+The app is predicting adjusted closing value of stock price of different companies.
