@@ -10,6 +10,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
+    if os.path.exists("templates/visualize.html"):
+        os.remove("templates/visualize.html")
     return render_template('index.html', l=0)
 
 @app.route('/visualize',methods=['POST'])
@@ -56,7 +58,8 @@ def predict():
     x = dates.loc[0:nod-1]
     x['Price'] = y
     fig = px.line(x, x='Date', y='Price', title = graph_title + ' stock price prediction')
-    os.remove("templates/visualize.html")
+    if os.path.exists("templates/visualize.html"):
+        os.remove("templates/visualize.html")
     fig.write_html("templates/visualize.html")
     date = x.loc[nod-1]
     date = np.array(date)
