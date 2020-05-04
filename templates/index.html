@@ -1,36 +1,75 @@
 <!DOCTYPE html>
 <html >
-<!--From https://codepen.io/frytyler/pen/EGdtg-->
 <head>
   <meta charset="UTF-8">
-  <title>ML API</title>
+  <title>Stock Price Prediction</title>
   <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  
+
 </head>
 
 <body>
+ <marquee> Welcome to Stock price prediction </marquee>
+    
  <div class="login">
-	<h1>Predicting TCS Stock Price</h1>
+  
+	<h1>Predicting Stock Prices</h1>
 
-     <!-- Main Input For Receiving Query to our ML -->
     <form action="{{ url_for('predict')}}"method="post">
+      <label for="company">Choose a company:</label>
+      <select name="company" class="btn btn-block btn-large">
+        <option value="error" disbled selected hidden>Select the company you want to predict for</option>
+        <option value="TCS">TCS - Tata Consultancy Services</option>
+        <option value="INFY">Infosys</option>
+        <option value="Cipla">Cipla</option>
+        <option value="Lupin">Lupin Pharmaceuticals</option>
+        <option value="TM">Tata Motors</option>
+        <option value="FM">Force Motors</option>
+        <option disabled class="comingsoon">More options coming soon</option>
+      </select>
+
+
     	<input type="text" name="days" placeholder="No of Days" required="required" />
        
-        <button type="Forecast" class="btn btn-primary btn-block btn-large">Predict</button>
+      <button type="Forecast" class="btn btn-primary btn-block btn-large predict">Predict</button>
     </form>
     
    <br>
-   <br>
    
-   {{ date }}
-   <br>
-   {{ prediction_text }}
- </div>
+    <table  style="overflow:scroll;">
+      
+      {{ error }}
+      <br>
+      {{ prediction_text }}
+      <br>
 
+      
+      
+      <table id='table1'>
+        {% for table in tables %}
+                <tr>
+                <td> {{ table|safe }}</td>
+                </tr> 
+        {% endfor %}
+      </table>
+    
+      
+      <br>
+    </table>
+    <br>
+    {% if l != 0: -%}
+      <form action="{{ url_for('visualize')}}"method="post">         
+        <button type="Forecast" class="btn btn-primary btn-block btn-large graph" id='graph'>{{ vs_text }}</button>
+      </form>
+
+    {%- endif %}
+  
+ </div>
+ <br>
+ <br>
 
 </body>
 </html>
